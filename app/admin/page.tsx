@@ -12,20 +12,28 @@ export default function Admin() {
 
   const [data, setData] = useState<User[]>([])
 
+  // get users on mount
   useEffect(() => {
-    getUsers();
+    const savedData = localStorage.getItem('users');
+    if (savedData) {
+      setData(JSON.parse(savedData));
+    } else {
+      getUsers();
+    }
   }, [])
 
   function getUsers() {
-
     fetch("/api/users")
       .then(res => res.json())
-      .then(data => setData(data))
-
+      .then(data => {
+        setData(data);
+        localStorage.setItem('users', JSON.stringify(data));
+      })
   }
 
   function clearUsers() {
     setData([]);
+    localStorage.setItem('users', JSON.stringify([]));
   }
 
 
