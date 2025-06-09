@@ -1,5 +1,19 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import ClientLayout from "./client-layout";
+import "./globals.css";
+
+export default function RootLayout({children}: {children: React.ReactNode}) {
+
+  return (
+    <html lang="fr">
+      <body>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
+      </body>
+    </html>
+  );
+}
 
 export const metadata: Metadata = {
   title: "NEXT.js Sample",
@@ -17,7 +31,3 @@ export const metadata: Metadata = {
     description: "Un exemple d'application Next.js avec thème sombre/clair",
   },
 };
-
-export default function RootLayout({children}: {children: React.ReactNode}) {
-  return <ClientLayout>{children}</ClientLayout>;
-}
